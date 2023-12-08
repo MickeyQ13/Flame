@@ -9,6 +9,7 @@ player_attack=1
 player_defense=0
 player_experience=0
 player_level=1
+turn=0
 
 function display_stats() {
     echo -e "\e[1;34mYour Stats - Level: $player_level, Health: $player_health, Attack: $player_attack, Defense: $player_defense, Experience: $player_experience\e[0m"
@@ -97,7 +98,9 @@ function battle() {
 
 while true; do
     display_stats
+    ((turn++))
 
+    echo "This is turn # $turn" > "$turn"
     echo "What do you want to do?"
     echo "1) Explore deeper into the forest"
     echo "2) Rest and recover"
