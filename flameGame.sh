@@ -26,7 +26,7 @@ function level_up() {
 
 function explore() {
     echo "You venture deeper into the forest..."
-    random_event=$((RANDOM % 3))
+    random_event=$((RANDOM % 4))
     case $random_event in
         0)
             echo "You discover a hidden treasure! You gain a Sword (+1 Attack)."
@@ -40,6 +40,9 @@ function explore() {
             echo "Uh-oh! You stumbled upon a trap and lose 2 health."
             ((player_health -= 2))
             ;;
+        3)
+            nERD
+            ;;
     esac
 
     ((player_experience += 2))
@@ -48,7 +51,7 @@ function explore() {
 
 function battle() {
     creatures=("Goblin" "Skeleton" "Spider" "Wolf")
-    enemy_name=${creatures[RANDOM % ${#creatures[@]}]}
+    enemy_name=${creatures[RANDOM % ${#creatures[@]} ] }
     enemy_health=$((10 + player_level * 2))
 
     echo "You bravely confront a $enemy_name!"
@@ -94,6 +97,68 @@ function battle() {
             exit 0
         fi
     done
+}
+
+function nERD() {
+    echo "You encounter a wild Grant!"
+    echo "    (._.)    "
+    echo "    /) )\    "
+    echo "_____/ \_____"
+    echo "Being the troll that he is, he demands you pay the toll before moving on. What do you give him?"
+    echo "1) A funny t-shirt"
+    echo "2) A wad of sticky notes"
+    echo "3) A John"
+
+    read -r choice
+
+    case $choice in
+        1)
+            echo "You hand him the shirt, which he takes excitedly. "
+            echo "However, his excitement quickly turns to disappointment, as he already owns this particular funny t-shirt."
+            echo "He runs you over with a Kei truck."
+
+            echo "      _____                      "
+            echo "     /     \                     "
+            echo "  __/ (._.) |_______   <<<<      "
+            echo " |   ___         ___|    <<<<    "   
+            echo " ---|   |-------|   |  <<<<      "   
+            echo "_____---_________---___________  "
+
+            echo "Game over! You were defeated by the Grant."
+            echo -n "Final stats: "
+            display_stats
+            exit 0
+            ;;
+        2)
+            echo "You chuck the wad of sticky notes at him."
+            echo "He holds it for a few seconds with a puzzled look on his face."
+            echo "Unsure whether to pity you or fear you, he decides to let you pass out of sheer confusion. Well done! (+10 Experience)"
+
+            echo "     ('~')    "
+            echo "     \) )->   "
+            echo " _____/ \_____"
+            ((player_experience += 10))
+            ;;
+        3)
+            echo "You present the Grant with the John. Both are overjoyed!"
+            echo "However, as they run into eachothers arms and start jumping for joy..."
+            echo "They acidentally jump too high and land on top of you, killing you instantly."
+
+            echo "            !!!!          "
+            echo "       ( .3.)/\(._. )     "
+            echo "        /) )    ( (\      "
+            echo "        / /      \ \      "
+            echo "                          "
+            echo "           ('o')          "
+            echo "           \) )/          "
+            echo "____________/_\___________"
+
+            echo "Game over! You were defeated by the Kangaroids."
+            echo -n "Final stats: "
+            display_stats
+            exit 0
+            ;;
+    esac
 }
 
 while true; do
